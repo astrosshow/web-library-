@@ -1,3 +1,4 @@
+
 body {
     background-image: url("./assets/programming_image.jpg");
     background-repeat: no-repeat;
@@ -48,23 +49,45 @@ body {
     background-color: #5a6268;
 }
 
-.book-container {
+.books-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-items: center;
+}
+
+.book {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    margin-top: 20px;
-    padding: 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 100%;
 }
 
-.pdf-wrapper {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    max-width: 95%;
+.book img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.book h3 {
+    font-size: 1.2em;
+    font-family: Arial, sans-serif;
+    margin-top: 10px;
 }
 
 .pdf-viewer {
-    border: none;
+    display:none;
+    width: 100%;
+    max-width: 95%;
+    height: 400px;
+    margin-top: 15px;
+    border: 1px solid #cccccc;
     border-radius: 10px;
 }
