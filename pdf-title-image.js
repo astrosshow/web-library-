@@ -10,7 +10,6 @@ async function extractFirstImage(pdfUrl) {
 
         // Get the first page of the PDF
         const page = await pdf.getPage(1);
-        const operatorList = await page.getOperatorList();
 
         // Create a canvas to render the page
         const viewport = page.getViewport({scale: 1});
