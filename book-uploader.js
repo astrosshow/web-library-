@@ -48,23 +48,17 @@ function createBookElement(title, file, bookImageURL) {
     bookImage.src = bookImageURL;
     bookImage.alt = title;
 
-    // PDF viewer
-    const pdfViewer = document.createElement('iframe');
-    pdfViewer.className = 'pdf-viewer';
-    pdfViewer.src = ''
+    // Store PDF file as a URL to 'data-pdf-url'
+    const pdfURL = URL.createObjectURL(file);
+    bookDiv.setAttribute('data-pdf-url', pdfURL);
 
+    // Open the PDF in a new tab when the book is clicked
     bookImage.addEventListener('click', () => {
-        if (pdfViewer.style.display === 'none') {
-            pdfViewer.src = URL.createObjectURL(file);
-            pdfViewer.style.display = 'block';
-        } else {
-            pdfViewer.style.display = 'none'
-        }
+        window.open(pdfURL, '_blank');
     })
 
     bookDiv.appendChild(bookImage);
     bookDiv.appendChild(bookTitle);
-    bookDiv.appendChild(pdfViewer);
 
     return bookDiv;
 }
