@@ -37,18 +37,22 @@ uploadButton.addEventListener('click', async () => {
         alert(result.message);
 
         // Generate PDF URL
-        const pdfURL = `http://localhost:3000${result.filePath}`;
+        const pdfURL = result.filePath;
+        if (!pdfURL) {
+            console.error('Invalid PDF URL:', pdfURL);
+        }
         const bookTitle = file.name.replace('.pdf', '');
 
         let imageThumbnail;
 
         try {
+            console.log('PDF URL passed to extractFirstImage:', pdfURL);
             // Attempt to extract the first page's image
             imageThumbnail = await extractFirstImage(pdfURL);
         } catch (error) {
             console.error('Error while generating thumbnail:', error.message || error);
             // Fallback to default placeholder image
-            imageThumbnail = '/error.png'; // Replace with a valid image path
+            imageThumbnail = 'assets/error.png';
         }
 
         // Create and display the book element
@@ -56,7 +60,7 @@ uploadButton.addEventListener('click', async () => {
         booksContainer.appendChild(bookElement);
 
     } catch (error) {
-        console.error('Error uploading PDF file: ', error.message || error);
+        console.error(error.message || error);
     }
 
     uploadInput.value = '';
@@ -88,3 +92,37 @@ function createBookElement(title, file, bookImageURL) {
 
     return bookDiv;
 }
+
+async function fetchBooks() {
+    try {
+        const response = await fetch('http://localhost:3000/pdfs'); // Fetch metadata from server
+        const pdfs = await response.json();
+        console.log('PDFs fetched:', pdfs);
+
+        for (const pdf of pdfs) {
+            try {
+                const pdfURL = pdf.s3Url; // Use the public URL from the database
+                const title = pdf.title;
+
+                // Generate a thumbnail for the book
+                let thumbnail;
+                try {
+                    thumbnail = await extractFirstImage(pdfURL);
+                } catch (error) {
+                    console.error('Error generating thumbnail, using default:', error.message || error);
+                    thumbnail = 'assets/error.png'; // Fallback thumbnail
+                }
+
+                // Create and add the book element to the page
+                const bookElement = createBookElement(title, pdfURL, thumbnail);
+                booksContainer.appendChild(bookElement);
+            } catch (error) {
+                console.error('Error processing book:', error.message || error);
+            }
+        }
+    } catch (error) {
+        console.error('Failed to fetch PDFs:', error.message || error);
+    }
+}
+
+fetchBooks().then(r => console.log('Books fetched')).catch(e => console.error('Error fetching books:', e.message || e));

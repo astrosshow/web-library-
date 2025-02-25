@@ -1,6 +1,6 @@
-import * as pdfjsLib from '/node_modules/pdfjs-dist/legacy/build/pdf.mjs';
+import * as pdfjsLib from './libs/pdfjs/pdf.mjs';
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = '/node_modules/pdfjs-dist/legacy/build/pdf.worker.mjs';
+pdfjsLib.GlobalWorkerOptions.workerSrc = './libs/pdfjs/pdf.worker.mjs';
 
 async function extractFirstImage(pdfUrl) {
     try {
