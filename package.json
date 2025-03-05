@@ -18,7 +18,22 @@
   "devDependencies": {
     "nodemon": "^3.1.9"
   },
-    "engines": {
-        "node": ">=18.0.0"
-    }
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "name": "web-library-",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/astrosshow/web-library-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/astrosshow/web-library-/issues"
+  },
+  "homepage": "https://github.com/astrosshow/web-library-#readme"
 }
